@@ -1,11 +1,5 @@
-export interface Service {
-  code: number;
-  desc: string;
-  date: string;
-  cost: string;
-}
-
 export interface Customer {
+  id: number,
   firstName: string;
   lastName: string;
   year: number;
@@ -14,27 +8,26 @@ export interface Customer {
   service: Array<Service>;
 }
 
-export interface CustomerRowProps {
-  key: string;
-  customer: Customer;
-  onOpen: () => void;
-}
-
-export interface CustomerInfoServiceProps {
+export interface Service {
   code: string;
   description?: string;
   date: string;
   cost: string;
 }
 
+export interface CustomerRowProps {
+  key: string;
+  customer: Customer;
+}
+
 export interface CustomerInfoServiceDialogProps {
   open: boolean;
   onClose: () => void;
-  onSave: (x: boolean) => void;
+  onSave: (x: Service) => void;
 }
 
 export interface CustomersContextProps {
-  addService: () => void;
+  updateCustomerById: (id : number, customer: Customer ) => void;
   fetchCustomers: () => void;
   customers: any;
 }

@@ -1,18 +1,22 @@
 import { useEffect } from "react";
-import "./styles.css";
+import { Box } from "@mui/material";
 import CustomerInfoTable from "./components/CustomerInfoTable";
 import useCustomersContext from "./hooks/useCustomersContext";
 
 export default function App() {
-  // const { fetchCustomers } = useCustomersContext();
+  const { fetchCustomers } = useCustomersContext();
 
-  // useEffect(() => {
-  //   fetchCustomers();
-  // }, [fetchCustomers]);
+  useEffect(() => {
+    fetchCustomers();
+  }, [fetchCustomers]);
 
   return (
-    <div className="App">
+    <Box
+      maxWidth="1024px"
+      mx="auto"
+      mt={14}
+    >
       <CustomerInfoTable />
-    </div>
+    </Box>
   );
 }

@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Table,
   TableBody,
@@ -9,24 +8,11 @@ import {
   Paper
 } from "@mui/material";
 import { Customer } from "../types/types";
-import customers from "../data/customers";
 import CustomerInfoTableRow from "./CustomerInfoTableRow";
-import CustomerInfoServiceDialog from "./CustomerInfoServiceDialog";
+import useCustomersContext from "../hooks/useCustomersContext";
 
 const CustomerInfoTable = () => {
-  const [open, setOpen] = React.useState(false);
-
-  const handleDialogOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDialogClose = () => {
-    setOpen(false);
-  };
-
-  const handleDialogFormSave = () => {
-    setOpen(false);
-  };
+  const { customers } = useCustomersContext();
 
   return (
     <>
@@ -42,21 +28,15 @@ const CustomerInfoTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {customers.map((c: Customer) => (
+            {customers?.map((c: Customer) => (
               <CustomerInfoTableRow
                 key={c.firstName}
                 customer={c}
-                onOpen={handleDialogOpen}
               />
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-      <CustomerInfoServiceDialog
-        open={open}
-        onClose={handleDialogClose}
-        onSave={handleDialogFormSave}
-      />
     </>
   );
 };

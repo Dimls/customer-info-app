@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import {
   DeepMap,
   FieldError,
@@ -22,26 +22,29 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import {
   CustomerInfoServiceDialogProps,
-  CustomerInfoServiceProps
+  Service
 } from "../types/types";
 
 const CustomerInfoServiceDialog = ({
   open,
-  onClose
+  onClose,
+  onSave
 }: CustomerInfoServiceDialogProps) => {
+
+  // const [date, setDate] = useState<String | null>(null);
+
   const {
     control,
     reset,
     handleSubmit,
     formState: { errors }
-  } = useForm<CustomerInfoServiceProps>({});
+  } = useForm<Service>({});
 
-  const handleFormSubmit = (data: CustomerInfoServiceProps) => {
-    onClose();
+  const handleFormSubmit = (data: Service) => {
+    data.date = moment(data.date).format('MMMM DD, YYYY');
+    onSave(data);
     reset();
   };
-
-  console.log(errors.date);
 
   return (
     <Dialog open={open} onClose={onClose}>
@@ -70,9 +73,8 @@ const CustomerInfoServiceDialog = ({
                   error={errors.code !== undefined}
                   helperText={
                     errors.code &&
-                    `${
-                      (errors["code"] as DeepMap<FieldValues, FieldError>)
-                        ?.message
+                    `${(errors["code"] as DeepMap<FieldValues, FieldError>)
+                      ?.message
                     }`
                   }
                 />
@@ -101,6 +103,7 @@ const CustomerInfoServiceDialog = ({
               render={({ field: { onChange, value } }) => (
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker
+                    // id={"date"}
                     label="Date"
                     value={value}
                     onChange={onChange}
@@ -109,9 +112,8 @@ const CustomerInfoServiceDialog = ({
                         error: errors.date !== undefined,
                         helperText:
                           errors.date &&
-                          `${
-                            (errors["date"] as DeepMap<FieldValues, FieldError>)
-                              ?.message
+                          `${(errors["date"] as DeepMap<FieldValues, FieldError>)
+                            ?.message
                           }`
                       }
                     }}
@@ -135,9 +137,8 @@ const CustomerInfoServiceDialog = ({
                   error={errors.cost !== undefined}
                   helperText={
                     errors.cost &&
-                    `${
-                      (errors["cost"] as DeepMap<FieldValues, FieldError>)
-                        ?.message
+                    `${(errors["cost"] as DeepMap<FieldValues, FieldError>)
+                      ?.message
                     }`
                   }
                 />

@@ -3,7 +3,6 @@
         "./src/**/*"
     ],
     "compilerOptions": {
-        "no-unused-vars": "off",
         "strict": true,
         "esModuleInterop": true,
         "lib": [
